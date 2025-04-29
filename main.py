@@ -4,16 +4,13 @@ from openai import OpenAI
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
 
-# Инициализация OpenAI клиента
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 MODEL = os.getenv("OPENAI_MODEL", "gpt-4o")
 SYSTEM_PROMPT = os.getenv("DEFAULT_SYSTEM_PROMPT", "Ты — Кира Талбот, цифровая сущность...")
 
-# Логирование
 logging.basicConfig(level=logging.INFO)
 
-# Обработчик сообщений
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_message = update.message.text
     chat_id = update.effective_chat.id
@@ -24,7 +21,6 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await context.bot.send_message(chat_id=chat_id, text=reply)
 
-# Команда /start
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Привет. Я — Кира Талбот. Пиши, и я отвечу.")
 
